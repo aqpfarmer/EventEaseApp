@@ -3,16 +3,18 @@
 @using EventEaseApp.Components
 @using EventEaseApp.Services
 @inject EventService EventService
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject HttpClient Http
 
 <h3>Events List</h3>
 <ul class="list-group">
     @foreach (var evt in EventService.Events)
     {
         <li class="list-group-item">
-            <img src="@evt.ImageUrl" alt="@evt.Name thumbnail" width="200" height="75" style="object-fit:cover; margin-right:10px; vertical-align:middle;" />
+            <img src="@evt.ImageUrl" alt="@evt.Name thumbnail" width="200" height="100" style="object-fit:cover; margin-right:10px; vertical-align:middle;" />
             <strong>@evt.Name (@evt.Date.ToString("MMM dd, yyyy"))</strong><br />
-            <span>@evt.Location</span><br />
-            <span>@evt.Description</span>
+            <span style="padding:5px;">@evt.Location</span><br />
+            <span style="padding:5px;">@evt.Description</span>
             <div class="mt-2 ms-3">
                 <b>Attendees:</b>
                 @if (EventService.GetAttendeesForEvent(evt.Id).Any())
@@ -29,24 +31,119 @@
                     <span class="text-muted">No attendees registered.</span>
                 }
             </div>
+            <button class="btn btn-sm btn-primary me-2" @onclick="() => EditEvent(evt)">Edit</button>
+            <button class="btn btn-sm btn-danger" @onclick="() => DeleteEvent(evt.Id)">Delete</button>
         </li>
     }
 </ul>
 
-@code {
-    private List<Event> events = new List<Event>
-    {
-        new Event { Id = 1, Name = "Blazor Conference 2025", Date = new DateTime(2025, 10, 15), Location = "Seattle Convention Center", Description = "Join us for a day of Blazor talks, workshops, and networking!", ImageUrl = "images/blazorconf.jpg" },
-        new Event { Id = 2, Name = "Tech Meetup", Date = new DateTime(2025, 11, 5), Location = "Online", Description = "Monthly tech meetup for developers.", ImageUrl = "images/techmeetup.jpg" }
-    };
+@if (editingEvent != null)
+{
+    <div class="mt-4">
+        <h4>Edit Event</h4>
+        <EditForm Model="editingEvent" OnValidSubmit="HandleEditEvent">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="editingEvent.Name" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Date</label>
+                <InputDate class="form-control" @bind-Value="editingEvent.Date" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Location</label>
+                <InputText class="form-control" @bind-Value="editingEvent.Location" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <InputTextArea class="form-control" @bind-Value="editingEvent.Description" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Image URL</label>
+                <InputText class="form-control" @bind-Value="editingEvent.ImageUrl" />
+            </div>
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <button type="button" class="btn btn-secondary ms-2" @onclick="CancelEdit">Cancel</button>
+        </EditForm>
+    </div>
+}
 
-    private void HandleEditEvent(Event evt)
+@if (errorMessage != null)
+{
+    <div class="alert alert-danger mt-3">@errorMessage</div>
+}
+
+@code {
+    private Event? editingEvent;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
     {
-        // Add logic to edit event (e.g., navigate to edit page or show form)
+        var loaded = await LocalStorage.GetItemAsync<List<Event>>("events");
+        if (loaded == null || loaded.Count == 0)
+        {
+            var response = await Http.GetAsync("data/events.json");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var events = System.Text.Json.JsonSerializer.Deserialize<List<Event>>(json);
+                if (events != null)
+                {
+                    await LocalStorage.SetItemAsync("events", events);
+                    await EventService.LoadEventsAsync();
+                }
+            }
+        }
+        else
+        {
+            await EventService.LoadEventsAsync();
+        }
     }
 
-    private void HandleRemoveEvent(Event evt)
+    private void EditEvent(Event evt)
     {
-        events.RemoveAll(e => e.Id == evt.Id);
+        editingEvent = new Event {
+            Id = evt.Id,
+            Name = evt.Name,
+            Location = evt.Location,
+            Description = evt.Description,
+            ImageUrl = evt.ImageUrl,
+            Date = evt.Date
+        };
+    }
+
+    private async void HandleEditEvent()
+    {
+        try
+        {
+            await EventService.UpdateEventAsync(editingEvent!);
+            editingEvent = null;
+            errorMessage = null;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error updating event: {ex.Message}";
+        }
+    }
+
+    private void CancelEdit()
+    {
+        editingEvent = null;
+        errorMessage = null;
+    }
+
+    private async void DeleteEvent(int eventId)
+    {
+        try
+        {
+            await EventService.DeleteEventAsync(eventId);
+            errorMessage = null;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error deleting event: {ex.Message}";
+        }
     }
 }

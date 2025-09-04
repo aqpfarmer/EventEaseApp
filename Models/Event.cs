@@ -21,9 +21,7 @@ namespace EventEaseApp.Models
         [Required]
         [StringLength(500)]
         public required string Description { get; set; }
-
-        [Required]
-        [Url]
+                
         public required string ImageUrl { get; set; }
     }
 }

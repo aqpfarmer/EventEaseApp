@@ -3,6 +3,8 @@
 @using EventEaseApp.Components
 @using EventEaseApp.Services
 @inject EventService EventService
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject HttpClient Http
 
 <h3>Events List</h3>
 <ul class="list-group">
@@ -18,11 +20,28 @@
 </ul>
 
 @code {
-    private List<Event> events = new List<Event>
+    protected override async Task OnInitializedAsync()
     {
-        new Event { Id = 1, Name = "Blazor Conference 2025", Date = new DateTime(2025, 10, 15), Location = "Seattle Convention Center", Description = "Join us for a day of Blazor talks, workshops, and networking!", ImageUrl = "images/blazorconf.jpg" },
-        new Event { Id = 2, Name = "Tech Meetup", Date = new DateTime(2025, 11, 5), Location = "Online", Description = "Monthly tech meetup for developers.", ImageUrl = "images/techmeetup.jpg" }
-    };
+        var loaded = await LocalStorage.GetItemAsync<List<Event>>("events");
+        if (loaded == null || loaded.Count == 0)
+        {
+            var response = await Http.GetAsync("data/events.json");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var events = System.Text.Json.JsonSerializer.Deserialize<List<Event>>(json);
+                if (events != null)
+                {
+                    await LocalStorage.SetItemAsync("events", events);
+                    await EventService.LoadEventsAsync();
+                }
+            }
+        }
+        else
+        {
+            await EventService.LoadEventsAsync();
+        }
+    }
 
     private void HandleEditEvent(Event evt)
     {
@@ -31,6 +50,6 @@
 
     private void HandleRemoveEvent(Event evt)
     {
-        events.RemoveAll(e => e.Id == evt.Id);
+        EventService.Events.RemoveAll(e => e.Id == evt.Id);
     }
 }

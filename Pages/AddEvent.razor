@@ -3,6 +3,7 @@
 @using EventEaseApp.Components
 @using Microsoft.AspNetCore.Components.Forms
 @using System.ComponentModel.DataAnnotations
+@inject EventEaseApp.Services.EventService EventService
 
 <h3>Add New Event</h3>
 <EditForm Model="newEvent" OnValidSubmit="HandleAddEvent">
@@ -36,6 +37,11 @@
     <button type="submit" class="btn btn-success">Add Event</button>
 </EditForm>
 
+@if (successMessage != null)
+{
+    <div class="alert alert-success mt-3">@successMessage</div>
+}
+
 @code {
     private Event newEvent = new Event {
         Name = string.Empty,
@@ -44,10 +50,12 @@
         ImageUrl = string.Empty,
         Date = DateTime.Now
     };
+    private string? successMessage;
 
-    private void HandleAddEvent()
+    private async Task HandleAddEvent()
     {
-        // Add logic to save event (e.g., to a database or shared state)
+        await EventService.AddEventAsync(newEvent);
+        successMessage = "Event was successfully added";
         newEvent = new Event {
             Name = string.Empty,
             Location = string.Empty,

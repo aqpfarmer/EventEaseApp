@@ -1,0 +1,18 @@
+[
+  {
+    "Id": 1,
+    "Name": "Blazor Conference 2025",
+    "Location": "Seattle Convention Center",
+    "Description": "Join us for a day of Blazor talks, workshops, and networking!",
+    "ImageUrl": "images/conf2.jpg",
+    "Date": "2025-10-15T00:00:00"
+  },
+  {
+    "Id": 2,
+    "Name": "Tech Meetup",
+    "Location": "Online",
+    "Description": "Monthly tech meetup for developers.",
+    "ImageUrl": "images/conf1.jpg",
+    "Date": "2025-11-05T00:00:00"
+  }
+]
