@@ -1,0 +1,47 @@
+@using EventEaseApp.Models
+@using Microsoft.AspNetCore.Components.Forms
+@namespace EventEaseApp.Components
+
+<EditForm Model="EventModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <InputText class="form-control" @bind-Value="EventModel.Name" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Date</label>
+        <InputDate class="form-control" @bind-Value="EventModel.Date" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        <InputText class="form-control" @bind-Value="EventModel.Location" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <InputTextArea class="form-control" @bind-Value="EventModel.Description" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Image URL</label>
+        <InputText class="form-control" @bind-Value="EventModel.ImageUrl" />
+    </div>
+    <button type="submit" class="btn btn-success">@((EventModel.Id == 0) ? "Add Event" : "Update Event")</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public Event EventModel { get; set; } = new Event {
+        Name = string.Empty,
+        Location = string.Empty,
+        Description = string.Empty,
+        ImageUrl = string.Empty,
+        Date = DateTime.Now
+    };
+    [Parameter]
+    public EventCallback<Event> OnSubmit { get; set; }
+
+    private void HandleValidSubmit()
+    {
+        OnSubmit.InvokeAsync(EventModel);
+    }
+}

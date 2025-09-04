@@ -1,0 +1,59 @@
+@page "/addevent"
+@using EventEaseApp.Models
+@using EventEaseApp.Components
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+
+<h3>Add New Event</h3>
+<EditForm Model="newEvent" OnValidSubmit="HandleAddEvent">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <InputText class="form-control" @bind-Value="newEvent.Name" />
+        <ValidationMessage For="() => newEvent.Name" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Date</label>
+        <InputDate class="form-control" @bind-Value="newEvent.Date" />
+        <ValidationMessage For="() => newEvent.Date" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        <InputText class="form-control" @bind-Value="newEvent.Location" />
+        <ValidationMessage For="() => newEvent.Location" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <InputTextArea class="form-control" @bind-Value="newEvent.Description" />
+        <ValidationMessage For="() => newEvent.Description" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Image URL</label>
+        <InputText class="form-control" @bind-Value="newEvent.ImageUrl" />
+        <ValidationMessage For="() => newEvent.ImageUrl" />
+    </div>
+    <button type="submit" class="btn btn-success">Add Event</button>
+</EditForm>
+
+@code {
+    private Event newEvent = new Event {
+        Name = string.Empty,
+        Location = string.Empty,
+        Description = string.Empty,
+        ImageUrl = string.Empty,
+        Date = DateTime.Now
+    };
+
+    private void HandleAddEvent()
+    {
+        // Add logic to save event (e.g., to a database or shared state)
+        newEvent = new Event {
+            Name = string.Empty,
+            Location = string.Empty,
+            Description = string.Empty,
+            ImageUrl = string.Empty,
+            Date = DateTime.Now
+        };
+    }
+}

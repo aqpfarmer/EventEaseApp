@@ -1,0 +1,52 @@
+@page "/events"
+@using EventEaseApp.Models
+@using EventEaseApp.Components
+@using EventEaseApp.Services
+@inject EventService EventService
+
+<h3>Events List</h3>
+<ul class="list-group">
+    @foreach (var evt in EventService.Events)
+    {
+        <li class="list-group-item">
+            <img src="@evt.ImageUrl" alt="@evt.Name thumbnail" width="200" height="75" style="object-fit:cover; margin-right:10px; vertical-align:middle;" />
+            <strong>@evt.Name (@evt.Date.ToString("MMM dd, yyyy"))</strong><br />
+            <span>@evt.Location</span><br />
+            <span>@evt.Description</span>
+            <div class="mt-2 ms-3">
+                <b>Attendees:</b>
+                @if (EventService.GetAttendeesForEvent(evt.Id).Any())
+                {
+                    <ul>
+                        @foreach (var attendee in EventService.GetAttendeesForEvent(evt.Id))
+                        {
+                            <li>@attendee.Name (@attendee.Email)</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span class="text-muted">No attendees registered.</span>
+                }
+            </div>
+        </li>
+    }
+</ul>
+
+@code {
+    private List<Event> events = new List<Event>
+    {
+        new Event { Id = 1, Name = "Blazor Conference 2025", Date = new DateTime(2025, 10, 15), Location = "Seattle Convention Center", Description = "Join us for a day of Blazor talks, workshops, and networking!", ImageUrl = "images/blazorconf.jpg" },
+        new Event { Id = 2, Name = "Tech Meetup", Date = new DateTime(2025, 11, 5), Location = "Online", Description = "Monthly tech meetup for developers.", ImageUrl = "images/techmeetup.jpg" }
+    };
+
+    private void HandleEditEvent(Event evt)
+    {
+        // Add logic to edit event (e.g., navigate to edit page or show form)
+    }
+
+    private void HandleRemoveEvent(Event evt)
+    {
+        events.RemoveAll(e => e.Id == evt.Id);
+    }
+}

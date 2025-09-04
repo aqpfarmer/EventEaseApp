@@ -1,0 +1,32 @@
+@using EventEaseApp.Models
+@namespace EventEaseApp.Components
+
+<div>
+    <h3>Events</h3>
+    <ul class="list-group">
+        @foreach (var evt in Events)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>@evt.Name (@evt.Date.ToString("MMM dd, yyyy"))</span>
+                <span>
+                    <button class="btn btn-sm btn-primary me-2" @onclick="() => EditEvent(evt)">Edit</button>
+                    <button class="btn btn-sm btn-danger" @onclick="() => RemoveEvent(evt)">Remove</button>
+                </span>
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+    [Parameter]
+    public List<Event> Events { get; set; }
+    [Parameter]
+    public Event SelectedEvent { get; set; }
+    [Parameter]
+    public EventCallback<Event> OnEdit { get; set; }
+    [Parameter]
+    public EventCallback<Event> OnRemove { get; set; }
+
+    private void EditEvent(Event evt) => OnEdit.InvokeAsync(evt);
+    private void RemoveEvent(Event evt) => OnRemove.InvokeAsync(evt);
+}

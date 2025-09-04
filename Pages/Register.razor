@@ -1,0 +1,85 @@
+@page "/register"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@using EventEaseApp.Models
+@inject EventEaseApp.Services.EventService EventService
+
+<h3>Register For Event</h3>
+<EditForm Model="attendee" OnValidSubmit="HandleRegister">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <InputText class="form-control" @bind-Value="attendee.Name" />
+        <ValidationMessage For="() => attendee.Name" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Address</label>
+        <InputText class="form-control" @bind-Value="attendee.Address" />
+        <ValidationMessage For="() => attendee.Address" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <InputText class="form-control" @bind-Value="attendee.Phone" />
+        <ValidationMessage For="() => attendee.Phone" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <InputText class="form-control" @bind-Value="attendee.Email" />
+        <ValidationMessage For="() => attendee.Email" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Country</label>
+        <InputText class="form-control" @bind-Value="attendee.Country" />
+        <ValidationMessage For="() => attendee.Country" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Events</label>
+        <select multiple class="form-control" @onchange="OnEventSelectionChanged">
+            @foreach (var evt in EventService.Events)
+            {
+                <option value="@evt.Id" selected="@attendee.EventIds.Contains(evt.Id)">@evt.Name (@evt.Date.ToString("MMM dd, yyyy"))</option>
+            }
+        </select>
+        <ValidationMessage For="() => attendee.EventIds" />
+    </div>
+    <button type="submit" class="btn btn-success">Register</button>
+</EditForm>
+
+@if (successMessage != null)
+{
+    <div class="alert alert-success mt-3">@successMessage</div>
+}
+
+@code {
+    private Attendee attendee = new Attendee {
+        Name = string.Empty,
+        Address = string.Empty,
+        Phone = string.Empty,
+        Email = string.Empty,
+        Country = string.Empty,
+        EventIds = Array.Empty<int>()
+    };
+    private string? successMessage;
+
+    private void HandleRegister()
+    {
+        EventService.RegisterAttendee(attendee);
+        var eventNames = EventService.Events.Where(e => attendee.EventIds.Contains(e.Id)).Select(e => e.Name);
+        successMessage = $"Thank you, {attendee.Name}, for registering for: {string.Join(", ", eventNames)}!";
+        attendee = new Attendee {
+            Name = string.Empty,
+            Address = string.Empty,
+            Phone = string.Empty,
+            Email = string.Empty,
+            Country = string.Empty,
+            EventIds = Array.Empty<int>()
+        };
+    }
+
+    private void OnEventSelectionChanged(ChangeEventArgs e)
+    {
+        var selectedOptions = e.Value as IEnumerable<string> ?? new List<string>();
+        attendee.EventIds = selectedOptions.Select(int.Parse).ToArray();
+    }
+}
