@@ -18,10 +18,15 @@
         box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     }
 </style>
+<div>
+    <button class="btn btn-outline-secondary btn-sm me-2" @onclick="PrevPage" disabled="@(currentPage == 1)">Prev</button>
+    <span>Page @currentPage of @totalPages</span>
+    <button class="btn btn-outline-secondary btn-sm ms-2" @onclick="NextPage" disabled="@(currentPage == totalPages)">Next</button>
+</div>
 <ul class="list-group">
-    @foreach (var evt in EventService.Events)
+    @foreach (var evt in pagedEvents)
     {
-    <li class="list-group-item" @onclick="() => NavigateToRegister(evt.Id)" style="cursor:pointer;">
+        <li class="list-group-item" @onclick="() => NavigateToRegister(evt.Id)" style="cursor:pointer;">
             <img src="@evt.ImageUrl" alt="@evt.Name thumbnail" width="60" height="40" style="object-fit:cover; margin-right:10px; vertical-align:middle;" />
             <strong>@evt.Name (@evt.Date.ToString("MMM dd, yyyy"))</strong><br />
             <span>@evt.Location</span><br />
@@ -31,10 +36,32 @@
 </ul>
 
 @code {
+    private int currentPage = 1;
+    private int pageSize = 5;
+    private int totalPages => (int)Math.Ceiling((double)EventService.Events.Count / pageSize);
+    private List<Event> pagedEvents => EventService.Events.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+    private void PrevPage()
+    {
+        if (currentPage > 1)
+        {
+            currentPage--;
+        }
+    }
+
+    private void NextPage()
+    {
+        if (currentPage < totalPages)
+        {
+            currentPage++;
+        }
+    }
+
     private void NavigateToRegister(int eventId)
     {
         Navigation.NavigateTo($"/register?eventId={eventId}");
     }
+
     protected override async Task OnInitializedAsync()
     {
         var loaded = await LocalStorage.GetItemAsync<List<Event>>("events");
