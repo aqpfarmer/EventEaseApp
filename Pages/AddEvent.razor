@@ -1,11 +1,10 @@
 @page "/addevent"
 @using EventEaseApp.Models
-@using EventEaseApp.Components
 @using Microsoft.AspNetCore.Components.Forms
 @using System.ComponentModel.DataAnnotations
 @inject EventEaseApp.Services.EventService EventService
 
-<h3>Add New Event</h3>
+<h3 style="color: darkmagenta;">Add New Event</h3>
 <EditForm Model="newEvent" OnValidSubmit="HandleAddEvent" style="width:50vw; margin:0 auto;">
     <DataAnnotationsValidator />
     <ValidationSummary />

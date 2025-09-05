@@ -28,18 +28,6 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chris/source/repos/MyBlazorStuff/EventEaseApp/Components/EventCard.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFdmVudENhcmQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/chris/source/repos/MyBlazorStuff/EventEaseApp/Components/EventForm.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFdmVudEZvcm0ucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/chris/source/repos/MyBlazorStuff/EventEaseApp/Components/EventList.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFdmVudExpc3QucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/chris/source/repos/MyBlazorStuff/EventEaseApp/Pages/AddEvent.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkRXZlbnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

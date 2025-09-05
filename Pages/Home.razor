@@ -1,13 +1,12 @@
 ﻿@page "/"
 @using EventEaseApp.Models
-@using EventEaseApp.Components
 @using EventEaseApp.Services
 @inject EventService EventService
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @inject HttpClient Http
 @inject NavigationManager Navigation
 
-<h3>Events List</h3>
+<h3 style="color: darkmagenta;">Events List</h3>
 <style>
     .list-group-item {
         transition: transform 0.2s ease;
