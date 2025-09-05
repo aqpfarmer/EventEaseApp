@@ -1080,10 +1080,10 @@ C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\Blazored
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\webcil\Blazored.LocalStorage.wasm
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\kop4aqn4ik-12n6dz54qr.gz
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\413vp4cml5-mywb07lv1n.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.2m2ts42o4z.wasm
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.3sdcfg1bl3.pdb
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.2m2ts42o4z.wasm.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.3sdcfg1bl3.pdb.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\skwk8s9ui1-2m2ts42o4z.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\c1jhhq4o6d-3sdcfg1bl3.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\a1w0b3e4ey-aoserdtsxv.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.ussmhiuxce.wasm
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.zgk9edwi7l.pdb
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.ussmhiuxce.wasm.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.zgk9edwi7l.pdb.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\skwk8s9ui1-ussmhiuxce.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\c1jhhq4o6d-zgk9edwi7l.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\a1w0b3e4ey-4g7xk1vbp3.gz
