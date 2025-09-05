@@ -5,12 +5,23 @@
 @inject EventService EventService
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @inject HttpClient Http
+@inject NavigationManager Navigation
 
 <h3>Events List</h3>
+<style>
+    .list-group-item {
+        transition: transform 0.2s ease;
+    }
+    .list-group-item:hover {
+        transform: scale(1.05);
+        z-index: 1;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+</style>
 <ul class="list-group">
     @foreach (var evt in EventService.Events)
     {
-        <li class="list-group-item">
+    <li class="list-group-item" @onclick="() => NavigateToRegister(evt.Id)" style="cursor:pointer;">
             <img src="@evt.ImageUrl" alt="@evt.Name thumbnail" width="60" height="40" style="object-fit:cover; margin-right:10px; vertical-align:middle;" />
             <strong>@evt.Name (@evt.Date.ToString("MMM dd, yyyy"))</strong><br />
             <span>@evt.Location</span><br />
@@ -20,6 +31,10 @@
 </ul>
 
 @code {
+    private void NavigateToRegister(int eventId)
+    {
+        Navigation.NavigateTo($"/register?eventId={eventId}");
+    }
     protected override async Task OnInitializedAsync()
     {
         var loaded = await LocalStorage.GetItemAsync<List<Event>>("events");
@@ -43,13 +58,4 @@
         }
     }
 
-    private void HandleEditEvent(Event evt)
-    {
-        // Add logic to edit event (e.g., navigate to edit page or show form)
-    }
-
-    private void HandleRemoveEvent(Event evt)
-    {
-        EventService.Events.RemoveAll(e => e.Id == evt.Id);
-    }
 }

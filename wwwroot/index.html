@@ -27,6 +27,14 @@
         <span class="dismiss">🗙</span>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+            <script>
+                window.scrollToEditSection = function() {
+                    var el = document.getElementById('edit-section');
+                    if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            </script>
 </body>
 
 </html>

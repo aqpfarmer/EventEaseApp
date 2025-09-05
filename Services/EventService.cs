@@ -27,6 +27,12 @@ namespace EventEaseApp.Services
 
         public async Task AddEventAsync(Event evt)
         {
+            // Assign a unique Id if not set or duplicate
+            if (evt.Id == 0 || Events.Any(e => e.Id == evt.Id))
+            {
+                int nextId = Events.Any() ? Events.Max(e => e.Id) + 1 : 1;
+                evt.Id = nextId;
+            }
             Events.Add(evt);
             await SaveEventsAsync();
         }

@@ -815,7 +815,6 @@ C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\scopedcs
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\blazor.build.boot-extension.json
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\blazor.boot.json
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\eotnszvkb1-8rbvw3on5j.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\413vp4cml5-bepv1uslm3.gz
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\th6pzune3g-bqjiyaj88i.gz
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\2l52lnvn0l-c2jlpeoesf.gz
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\2xhm8ivb61-erw9l3u2r3.gz
@@ -1080,10 +1079,11 @@ C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\Blazored.LocalStorage.dll
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\webcil\Blazored.LocalStorage.wasm
 C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\kop4aqn4ik-12n6dz54qr.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.6vnmz09dwq.wasm
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.fd6g93nwwy.pdb
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.6vnmz09dwq.wasm.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.fd6g93nwwy.pdb.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\skwk8s9ui1-6vnmz09dwq.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\c1jhhq4o6d-fd6g93nwwy.gz
-C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\a1w0b3e4ey-0dnp3mo7td.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\413vp4cml5-mywb07lv1n.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.2m2ts42o4z.wasm
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.3sdcfg1bl3.pdb
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.2m2ts42o4z.wasm.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\bin\Debug\net9.0\wwwroot\_framework\EventEaseApp.3sdcfg1bl3.pdb.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\skwk8s9ui1-2m2ts42o4z.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\c1jhhq4o6d-3sdcfg1bl3.gz
+C:\Users\chris\source\repos\MyBlazorStuff\EventEaseApp\obj\Debug\net9.0\compressed\a1w0b3e4ey-aoserdtsxv.gz

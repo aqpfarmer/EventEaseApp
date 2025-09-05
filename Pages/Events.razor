@@ -5,6 +5,7 @@
 @inject EventService EventService
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @inject HttpClient Http
+@inject IJSRuntime JS
 
 <h3>Events List</h3>
 <ul class="list-group">
@@ -37,6 +38,7 @@
     }
 </ul>
 
+<a id="edit-section"></a>
 @if (editingEvent != null)
 {
     <div class="mt-4">
@@ -102,7 +104,7 @@
         }
     }
 
-    private void EditEvent(Event evt)
+    private async Task EditEvent(Event evt)
     {
         editingEvent = new Event {
             Id = evt.Id,
@@ -112,6 +114,7 @@
             ImageUrl = evt.ImageUrl,
             Date = evt.Date
         };
+        await JS.InvokeVoidAsync("scrollToEditSection");
     }
 
     private async void HandleEditEvent()
