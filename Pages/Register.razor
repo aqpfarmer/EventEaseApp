@@ -6,7 +6,7 @@
 @inject NavigationManager Navigation
 
 <h3>Register For Event</h3>
-<EditForm Model="attendee" OnValidSubmit="HandleRegister">
+<EditForm Model="attendee" OnValidSubmit="HandleRegister" style="width:50vw; height:70vh; margin:0 auto; padding-bottom:60px; overflow:hidden;">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="mb-3">
@@ -47,6 +47,10 @@
     <button type="submit" class="btn btn-success">Register</button>
 </EditForm>
 
+@if (errorMessage != null)
+{
+    <div class="alert alert-danger mt-3">@errorMessage</div>
+}
 @if (successMessage != null)
 {
     <div class="alert alert-success mt-3">@successMessage</div>
@@ -65,6 +69,7 @@
         EventIds = Array.Empty<int>()
     };
     private string? successMessage;
+    private string? errorMessage;
 
     protected override void OnInitialized()
     {
@@ -76,9 +81,24 @@
 
     private void HandleRegister()
     {
+        // Check for duplicate registration
+        var alreadyRegisteredEvents = attendee.EventIds.Where(eventId =>
+            EventService.GetAttendeesForEvent(eventId)
+                .Any(a => a.Email.Equals(attendee.Email, System.StringComparison.OrdinalIgnoreCase))
+        ).ToList();
+
+        if (alreadyRegisteredEvents.Any())
+        {
+            var eventNames = EventService.Events.Where(e => alreadyRegisteredEvents.Contains(e.Id)).Select(e => e.Name);
+            errorMessage = $"A person with that email is already registered for this event: {string.Join(", ", eventNames)}";
+            successMessage = null;
+            return;
+        }
+
         EventService.RegisterAttendee(attendee);
-        var eventNames = EventService.Events.Where(e => attendee.EventIds.Contains(e.Id)).Select(e => e.Name);
-        successMessage = $"Thank you, {attendee.Name}, for registering for: {string.Join(", ", eventNames)}!";
+        var registeredEventNames = EventService.Events.Where(e => attendee.EventIds.Contains(e.Id)).Select(e => e.Name);
+        successMessage = $"Thank you, {attendee.Name}, for registering for: {string.Join(", ", registeredEventNames)}!";
+        errorMessage = null;
         attendee = new Attendee {
             Name = string.Empty,
             Address = string.Empty,

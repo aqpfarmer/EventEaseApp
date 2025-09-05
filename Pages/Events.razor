@@ -28,7 +28,7 @@
                     <ul>
                         @foreach (var attendee in EventService.GetAttendeesForEvent(evt.Id))
                         {
-                            <li>@attendee.Name (@attendee.Email)</li>
+                            <li style="color:navy; font-style:italic;">@attendee.Name (@attendee.Email)</li>
                         }
                     </ul>
                 }

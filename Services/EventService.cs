@@ -44,7 +44,27 @@ namespace EventEaseApp.Services
 
         public void RegisterAttendee(Attendee attendee)
         {
-            Attendees.Add(attendee);
+            // Prevent duplicate registration for the same event and email
+            foreach (var eventId in attendee.EventIds)
+            {
+                bool alreadyRegistered = Attendees.Any(a => a.Email.Equals(attendee.Email, System.StringComparison.OrdinalIgnoreCase)
+                    && a.EventIds.Contains(eventId));
+                if (alreadyRegistered)
+                {
+                    continue; // Skip adding this event for this attendee
+                }
+                // Add a new attendee for this event
+                var newAttendee = new Attendee
+                {
+                    Name = attendee.Name,
+                    Address = attendee.Address,
+                    Phone = attendee.Phone,
+                    Email = attendee.Email,
+                    Country = attendee.Country,
+                    EventIds = new int[] { eventId }
+                };
+                Attendees.Add(newAttendee);
+            }
         }
 
         public IEnumerable<Attendee> GetAttendeesForEvent(int eventId)

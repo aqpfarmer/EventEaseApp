@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@inject EventEaseApp.Services.SessionService SessionService
+@inherits LayoutComponentBase
 <style>
     body {
         font-family: Verdana, Geneva, sans-serif;
@@ -13,14 +14,21 @@
     <main>
         <div style="background-color: Orange; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0;">
             <span style="font-weight:bold; font-size:2rem;">Event Ease Application - Sample coding project</span>
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            
+            <div style="margin-top:10px; font-size:0.9rem; color:#333;">
+                Session: @SessionService.SessionId - 
+                Last Activity: @SessionService.LastActivity.ToString("g")
+            </div>
         </div>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4" style="background-color: #e6e6fa;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">EventEase</a>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav w-100 flex-column flex-lg-row">
                         <li class="nav-item">
                             <a class="nav-link" href="/register">Register For Event</a>
                         </li>
@@ -29,6 +37,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/events">Events List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/help">Help</a>
                         </li>
                     </ul>
                 </div>

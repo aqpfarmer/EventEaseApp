@@ -18,12 +18,12 @@
         box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     }
 </style>
-<div>
+<div style="width:50vw; margin:0 auto; text-align:center;">
     <button class="btn btn-outline-secondary btn-sm me-2" @onclick="PrevPage" disabled="@(currentPage == 1)">Prev</button>
     <span>Page @currentPage of @totalPages</span>
     <button class="btn btn-outline-secondary btn-sm ms-2" @onclick="NextPage" disabled="@(currentPage == totalPages)">Next</button>
 </div>
-<ul class="list-group">
+<ul class="list-group" style="width:50vw; margin:0 auto;">
     @foreach (var evt in pagedEvents)
     {
         <li class="list-group-item" @onclick="() => NavigateToRegister(evt.Id)" style="cursor:pointer;">
